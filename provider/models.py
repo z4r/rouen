@@ -16,10 +16,10 @@ class Provider(models.Model):
     '''
     '''
     name       = models.CharField(_('Name'), max_length=20, primary_key=True)
-    adaptor    = models.ForeingKey(Adaptor)
+    adaptor    = models.ForeignKey(Adaptor)
     cdr_string = models.CharField(_('CDR String'), max_length=40)
     timeout    = models.PositiveSmallIntegerField(_('Timeout [sec]'), default=60)
-    country    = models.ForeingKey(Country)
+    country    = models.ForeignKey(Country)
 
     class Meta:
         verbose_name        = _('Provider')
@@ -30,7 +30,7 @@ class Extra(models.Model):
     '''
     '''
     name       = models.CharField(_('Name'), max_length=20, primary_key=True)
-    provider    = models.ForeingKey(Provider)
+    provider    = models.ForeignKey(Provider)
 
     class Meta:
         verbose_name        = _('Extra')
@@ -45,14 +45,14 @@ class OptionalKey(models.Model):
         verbose_name_plural = _('Optional Keys')
 
 class AbstractOptionalParameter(models.Model):
-    key   = models.ForeingKey(OptionalKey)
+    key   = models.ForeignKey(OptionalKey)
     value = models.TextField(_('Value'))
 
     class Meta:
         abstract = True
 
 class ProviderOptionalParameter(AbstractOptionalParameter):
-    provider = models.ForeingKey(Provider)
+    provider = models.ForeignKey(Provider)
 
     class Meta:
         verbose_name        = _('Optional Provider Parameter')
@@ -60,7 +60,7 @@ class ProviderOptionalParameter(AbstractOptionalParameter):
 
 
 class ExtraOptionalParameter(AbstractOptionalParameter):
-    extra = models.ForeingKey(Extra)
+    extra = models.ForeignKey(Extra)
 
     class Meta:
         verbose_name        = _('Optional Extra Parameter')
