@@ -2,6 +2,7 @@ from django.db import models
 from countries.models import Country
 from django.utils.translation import ugettext_lazy as _
 
+
 class Adaptor(models.Model):
     '''
     '''
@@ -15,7 +16,12 @@ class Adaptor(models.Model):
 class Provider(models.Model):
     '''
     '''
-    name       = models.CharField(_('Name'), max_length=20, primary_key=True)
+    name = models.CharField(_('Name'), max_length=20, primary_key=True)
+
+
+class ProviderRoot(Provider):
+    '''
+    '''
     adaptor    = models.ForeignKey(Adaptor)
     cdr_string = models.CharField(_('CDR String'), max_length=40)
     timeout    = models.PositiveSmallIntegerField(_('Timeout [sec]'), default=60)
@@ -26,11 +32,10 @@ class Provider(models.Model):
         verbose_name_plural = _('Providers')
 
 
-class Extra(models.Model):
+class Extra(Provider):
     '''
     '''
-    name       = models.CharField(_('Name'), max_length=20, primary_key=True)
-    provider    = models.ForeignKey(Provider)
+    provider    = models.ForeignKey(ProviderRoot)
 
     class Meta:
         verbose_name        = _('Extra')
@@ -44,24 +49,12 @@ class OptionalKey(models.Model):
         verbose_name        = _('Optional Key')
         verbose_name_plural = _('Optional Keys')
 
-class AbstractOptionalParameter(models.Model):
+
+class OptionalParameter(models.Model):
     key   = models.ForeignKey(OptionalKey)
     value = models.TextField(_('Value'))
+    owner = models.ForeignKey(Provider)
 
     class Meta:
-        abstract = True
-
-class ProviderOptionalParameter(AbstractOptionalParameter):
-    provider = models.ForeignKey(Provider)
-
-    class Meta:
-        verbose_name        = _('Optional Provider Parameter')
-        verbose_name_plural = _('Optional Provider Parameters')
-
-
-class ExtraOptionalParameter(AbstractOptionalParameter):
-    extra = models.ForeignKey(Extra)
-
-    class Meta:
-        verbose_name        = _('Optional Extra Parameter')
-        verbose_name_plural = _('Optional Extra Parameters')
+        verbose_name        = _('Optional Parameter')
+        verbose_name_plural = _('Optional Parameters')

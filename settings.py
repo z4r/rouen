@@ -95,4 +95,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'countries',
     'provider',
+
+    #DEVEL
 )

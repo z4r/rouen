@@ -31,35 +31,5 @@ class Country(models.Model):
 		verbose_name_plural = _('Countries')
 		ordering = ('name',)
 		
-	class Admin:
-		list_display = ('printable_name', 'iso',)
-		
 	def __unicode__(self):
 		return self.printable_name
-
-
-class UsState(models.Model):
-	"""
-	United States Postal Service (USPS) State Abbreviations
-	
-	Note::
-		This model is fixed to the database table 'usstate' to be more general.
-		Change ``db_table`` if this cause conflicts with your database layout.
-		Or comment out the line for default django behaviour.
-	
-	"""
-	id = models.AutoField(primary_key=True)
-	name = models.CharField(_('State name'), max_length=50, null=False)
-	abbrev = models.CharField(_('Abbreviation'), max_length=2, null=False)
-
-	class Meta:
-		db_table = 'usstate'
-		verbose_name = _('US State')
-		verbose_name_plural = _('US States')
-		ordering = ('name',)
-
-	class Admin:
-		list_display = ('name', 'abbrev',)
-
-	def __unicode__(self):
-		return self.name
