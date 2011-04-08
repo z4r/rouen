@@ -42,7 +42,8 @@ class OptionalParameter(models.Model):
 
 
 class Adaptor(models.Model):
-    '''
+    '''Name of protocol adaptor that implements aggregator
+       e.g. Dada::Rufus::Adaptor::Okto
     '''
     name = models.CharField(_('Name'), max_length=100, primary_key=True)
 
@@ -55,7 +56,8 @@ class Adaptor(models.Model):
 
 
 class Provider(OptionalParameterOwner):
-    '''
+    '''Name of phone company using an aggregator
+       e.g. provider 100 uses adaptor Dada::Rufus::Adaptor::Okto
     '''
     adaptor    = models.ForeignKey(Adaptor)
     cdr_string = models.CharField(_('CDR String'), max_length=40)
@@ -68,7 +70,8 @@ class Provider(OptionalParameterOwner):
 
 
 class Extra(OptionalParameterOwner):
-    '''
+    '''Some providers share common params. Those params are inserted in a 
+       special section with this name.
     '''
     provider    = models.ForeignKey(Provider, related_name='specialization')
 
