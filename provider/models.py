@@ -3,16 +3,9 @@ from countries.models import Country
 from django.utils.translation import ugettext_lazy as _
 
 
-class OptionalParameterOwner(models.Model):
-    '''
-    '''
-    name = models.CharField(_('Name'), max_length=20, unique=True)
-
-    def __unicode__(self):
-        return self.name
-
-
 class OptionalKey(models.Model): 
+    '''
+    '''
     name       = models.CharField(_('Key'), max_length=20, primary_key=True)
 
     class Meta:
@@ -23,15 +16,26 @@ class OptionalKey(models.Model):
         return self.name
 
 
+class OptionalParameterOwner(models.Model):
+    '''
+    '''
+    name = models.CharField(_('Name'), max_length=20, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class OptionalParameter(models.Model):
-    key   = models.ForeignKey(OptionalKey)
+    '''
+    '''
+    key   = models.ForeignKey(OptionalKey, related_name='owners')
     value = models.TextField(_('Value'))
-    owner = models.ManyToManyField(OptionalParameterOwner)
+    owner = models.ForeignKey(OptionalParameterOwner, related_name='owns')
 
     class Meta:
         verbose_name        = _('Optional Parameter')
         verbose_name_plural = _('Optional Parameters')
-        unique_together     = (('key', 'value',),)
+        unique_together     = (('key', 'owner',),)
 
     def __unicode__(self):
         return "%s: %s" % (self.owner, self.key)
@@ -66,7 +70,7 @@ class Provider(OptionalParameterOwner):
 class Extra(OptionalParameterOwner):
     '''
     '''
-    provider    = models.ForeignKey(Provider)
+    provider    = models.ForeignKey(Provider, related_name='specialization')
 
     class Meta:
         verbose_name        = _('Extra')
