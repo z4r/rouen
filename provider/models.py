@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class OptionalKey(models.Model): 
-    '''
+    ''' list of named parameters. It's used as a dropdown menu list that can grow.
     '''
     name       = models.CharField(_('Key'), max_length=20, primary_key=True)
 
@@ -17,7 +17,7 @@ class OptionalKey(models.Model):
 
 
 class OptionalParameterOwner(models.Model):
-    '''
+    '''  references provider or extra section
     '''
     name = models.CharField(_('Name'), max_length=20, unique=True)
 
@@ -26,8 +26,8 @@ class OptionalParameterOwner(models.Model):
 
 
 class OptionalParameter(models.Model):
-    '''
-    '''
+    ''' the content of sections in rufus.conf
+    ''' 
     key   = models.ForeignKey(OptionalKey, related_name='owners')
     value = models.TextField(_('Value'))
     owner = models.ForeignKey(OptionalParameterOwner, related_name='owns')
