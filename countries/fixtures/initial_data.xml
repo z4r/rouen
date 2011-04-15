@@ -1464,4 +1464,16 @@
         <field type="CharField" name="iso3">ZWE</field>
         <field type="PositiveSmallIntegerField" name="numcode">716</field>
     </object>
+    <object pk="XA" model="countries.country">
+        <field type="CharField" name="name">PRIVATE_ALL</field>
+        <field type="CharField" name="printable_name">All</field>
+        <field type="CharField" name="iso3">ALL</field>
+        <field type="PositiveSmallIntegerField" name="numcode">1000</field>
+    </object>
+    <object pk="XT" model="countries.country">
+        <field type="CharField" name="name">PRIVATE_TEST</field>
+        <field type="CharField" name="printable_name">Test</field>
+        <field type="CharField" name="iso3">TEST</field>
+        <field type="PositiveSmallIntegerField" name="numcode">1001</field>
+    </object>
 </django-objects>

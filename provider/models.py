@@ -2,6 +2,24 @@ from django.db import models
 from countries.models import Country
 from django.utils.translation import ugettext_lazy as _
 
+class ConfigCountry(models.Model):
+    '''
+    '''
+    country = models.OneToOneField(Country)
+    config_name = models.CharField(_('Config Name'), max_length=4, blank=True,
+                                   primary_key = True)
+
+    class Meta:
+        verbose_name        = _('Config Country')
+        verbose_name_plural = _('Config Countries')
+
+    def __unicode__(self):
+        return unicode(self.country)
+
+    def save(self, *args, **kvargs):
+        if not self.config_name:
+            self.config_name = self.country.iso2
+        super(ConfigCountry, self).save(*args, **kvargs)
 
 class OptionalKey(models.Model): 
     '''
@@ -29,7 +47,7 @@ class OptionalParameter(models.Model):
     '''
     '''
     key   = models.ForeignKey(OptionalKey, related_name='owners')
-    value = models.TextField(_('Value'))
+    value = models.CharField(_('Value'), max_length=256)
     owner = models.ForeignKey(OptionalParameterOwner, related_name='owns')
 
     class Meta:
@@ -62,7 +80,7 @@ class Provider(OptionalParameterOwner):
     adaptor    = models.ForeignKey(Adaptor)
     cdr_string = models.CharField(_('CDR String'), max_length=40)
     timeout    = models.PositiveSmallIntegerField(_('Timeout [sec]'), default=60)
-    country    = models.ForeignKey(Country)
+    country    = models.ForeignKey(ConfigCountry)
 
     class Meta:
         verbose_name        = _('Provider')
