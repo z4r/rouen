@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 import ConfigParser
-from provider.models import *
+from rufus.models import *
 from countries.models import Country
 
 class Command(BaseCommand):

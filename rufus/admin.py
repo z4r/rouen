@@ -1,4 +1,4 @@
-from provider.models import *
+from rufus.models import *
 from django.contrib import admin
 
 class ExtraInline(admin.TabularInline):
@@ -9,10 +9,11 @@ class OptionalParameterInline(admin.TabularInline):
     model = OptionalParameter
 
 class ProviderAdmin(admin.ModelAdmin):
-    inlines = (ExtraInline, OptionalParameterInline,)
+    list_display = ('name', 'country', 'timeout', 'adaptor', 'cdr_string', )
+    inlines = (OptionalParameterInline, ExtraInline, )
 
 class ExtraAdmin(admin.ModelAdmin):
-    list_display = ('name', 'provider')
+    list_display = ('name', 'provider',)
     inlines = (OptionalParameterInline,)
 
 admin.site.register(ConfigCountry)

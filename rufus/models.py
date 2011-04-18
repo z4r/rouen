@@ -1,6 +1,7 @@
 from django.db import models
-from countries.models import Country
+from countries.models import Country,Currency
 from django.utils.translation import ugettext_lazy as _
+
 
 class ConfigCountry(models.Model):
     '''
@@ -12,6 +13,7 @@ class ConfigCountry(models.Model):
     class Meta:
         verbose_name        = _('Config Country')
         verbose_name_plural = _('Config Countries')
+        db_table            = 'config_country'
 
     def __unicode__(self):
         return unicode(self.country)
@@ -21,6 +23,7 @@ class ConfigCountry(models.Model):
             self.config_name = self.country.iso2
         super(ConfigCountry, self).save(*args, **kvargs)
 
+
 class OptionalKey(models.Model): 
     ''' list of named parameters. It's used as a dropdown menu list that can grow.
     '''
@@ -29,6 +32,7 @@ class OptionalKey(models.Model):
     class Meta:
         verbose_name        = _('Optional Key')
         verbose_name_plural = _('Optional Keys')
+        db_table            = 'optional_key'
 
     def __unicode__(self):
         return self.name
@@ -54,6 +58,7 @@ class OptionalParameter(models.Model):
         verbose_name        = _('Optional Parameter')
         verbose_name_plural = _('Optional Parameters')
         unique_together     = (('key', 'owner',),)
+        db_table            = 'optional_parameter'
 
     def __unicode__(self):
         return "%s: %s" % (self.owner, self.key)
@@ -68,6 +73,8 @@ class Adaptor(models.Model):
     class Meta:
         verbose_name        = _('Adaptor')
         verbose_name_plural = _('Adaptors')
+        db_table            = 'adaptor'
+        
 
     def __unicode__(self):
         return self.name
@@ -85,6 +92,7 @@ class Provider(OptionalParameterOwner):
     class Meta:
         verbose_name        = _('Provider')
         verbose_name_plural = _('Providers')
+        db_table            = 'provider'
 
 
 class Extra(OptionalParameterOwner):
@@ -96,3 +104,18 @@ class Extra(OptionalParameterOwner):
     class Meta:
         verbose_name        = _('Extra')
         verbose_name_plural = _('Extra')
+        db_table            = 'extra'
+
+
+class ServiceCode(OptionalParameterOwner):
+    '''
+    '''
+    provider    = models.ForeignKey(Provider, related_name='service_codes')
+    tariff      = models.DecimalField(_('Tariff'), max_digits=10 ,decimal_places=2)
+#    currency    = models.ForeignKey(Currency, blank=True, null=True)
+#    country     = models.ForeignKey(ConfigCountry, blank=True, null=True)
+
+    class Meta:
+        verbose_name        = _('Service Code')
+        verbose_name_plural = _('Service Codes')
+        db_table            = 'service_code'
