@@ -1,0 +1,190 @@
+[
+    {
+        "pk": "BRL", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "R$", 
+            "name": "Brazilian Real"
+        }
+    }, 
+    {
+        "pk": "CAD", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "C$", 
+            "name": "Canadian dollar"
+        }
+    }, 
+    {
+        "pk": "EUR", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "\u20ac", 
+            "name": "Euro"
+        }
+    }, 
+    {
+        "pk": "INR", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "\u0930\u0941", 
+            "name": "Indian rupee"
+        }
+    }, 
+    {
+        "pk": "MXN", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "$", 
+            "name": "Mexican peso"
+        }
+    }, 
+    {
+        "pk": "USD", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "$", 
+            "name": "United States dollar"
+        }
+    }, 
+    {
+        "pk": "ZAR", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "R", 
+            "name": "South African rand"
+        }
+    }, 
+    {
+        "pk": "AT", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "AT", 
+            "name": "AUSTRIA", 
+            "printable_name": "Austria", 
+            "numcode": 40, 
+            "currency": "EUR", 
+            "iso3": "AUT"
+        }
+    }, 
+    {
+        "pk": "BR", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "BR", 
+            "name": "BRAZIL", 
+            "printable_name": "Brazil", 
+            "numcode": 76, 
+            "currency": "BRL", 
+            "iso3": "BRA"
+        }
+    }, 
+    {
+        "pk": "CA", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "CA", 
+            "name": "CANADA", 
+            "printable_name": "Canada", 
+            "numcode": 124, 
+            "currency": "CAD", 
+            "iso3": "CAN"
+        }
+    }, 
+    {
+        "pk": "IN", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "IN", 
+            "name": "INDIA", 
+            "printable_name": "India", 
+            "numcode": 356, 
+            "currency": "INR", 
+            "iso3": "IND"
+        }
+    }, 
+    {
+        "pk": "IT", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "IT", 
+            "name": "ITALY", 
+            "printable_name": "Italy", 
+            "numcode": 380, 
+            "currency": "EUR", 
+            "iso3": "ITA"
+        }
+    }, 
+    {
+        "pk": "MX", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "MX", 
+            "name": "MEXICO", 
+            "printable_name": "Mexico", 
+            "numcode": 484, 
+            "currency": "MXN", 
+            "iso3": "MEX"
+        }
+    }, 
+    {
+        "pk": "XA", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "ALL", 
+            "name": "PRIVATE_ALL", 
+            "printable_name": "All", 
+            "numcode": 1000, 
+            "currency": null, 
+            "iso3": "ALL"
+        }
+    }, 
+    {
+        "pk": "ZA", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "ZA", 
+            "name": "SOUTH AFRICA", 
+            "printable_name": "South Africa", 
+            "numcode": 710, 
+            "currency": "ZAR", 
+            "iso3": "ZAF"
+        }
+    }, 
+    {
+        "pk": "ES", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "ES", 
+            "name": "SPAIN", 
+            "printable_name": "Spain", 
+            "numcode": 724, 
+            "currency": "EUR", 
+            "iso3": "ESP"
+        }
+    }, 
+    {
+        "pk": "XT", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "TEST", 
+            "name": "TEST", 
+            "printable_name": "Test", 
+            "numcode": 1001, 
+            "currency": null, 
+            "iso3": "TST"
+        }
+    }, 
+    {
+        "pk": "US", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "US", 
+            "name": "UNITED STATES", 
+            "printable_name": "United States of America", 
+            "numcode": 840, 
+            "currency": "USD", 
+            "iso3": "USA"
+        }
+    }
+]
