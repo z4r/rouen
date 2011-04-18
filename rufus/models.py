@@ -1,27 +1,45 @@
 from django.db import models
-from countries.models import Country,Currency
 from django.utils.translation import ugettext_lazy as _
 
-
-class ConfigCountry(models.Model):
-    '''
-    '''
-    country = models.OneToOneField(Country)
-    config_name = models.CharField(_('Config Name'), max_length=4, blank=True,
-                                   primary_key = True)
+class Currency(models.Model):
+    code    = models.CharField(max_length=3, primary_key=True)
+    name    = models.CharField(max_length=25)
+    symbol  = models.CharField(max_length=2)
 
     class Meta:
-        verbose_name        = _('Config Country')
-        verbose_name_plural = _('Config Countries')
-        db_table            = 'config_country'
+        verbose_name        = _('Currency')
+        verbose_name_plural = _('Currencies')
+        db_table            = 'currency'
+        ordering            = ('code',)
 
     def __unicode__(self):
-        return unicode(self.country)
+        return self.code
+
+
+class Country(models.Model):
+    '''
+    '''
+    iso             = models.CharField(_('ISO alpha-2'), max_length=2, primary_key=True)
+    name            = models.CharField(_('Official name (CAPS)'), max_length=128, unique=True)
+    printable_name  = models.CharField(_('Country name'), max_length=128, unique=True)
+    iso3            = models.CharField(_('ISO alpha-3'), max_length=3, null=True, unique=True)
+    numcode         = models.PositiveSmallIntegerField(_('ISO numeric'), null=True, unique=True)
+    config_name     = models.CharField(_('Config Name'), max_length=4, blank=True, unique=True)
+    currency        = models.ForeignKey(Currency, blank=True, null=True) 
+    
+    class Meta:
+        verbose_name        = _('Country')
+        verbose_name_plural = _('Countries')
+        db_table            = 'country'
+        ordering            = ('name',)
+        
+    def __unicode__(self):
+        return self.printable_name
 
     def save(self, *args, **kvargs):
         if not self.config_name:
-            self.config_name = self.country.iso2
-        super(ConfigCountry, self).save(*args, **kvargs)
+            self.config_name = self.iso
+        super(Country, self).save(*args, **kvargs)
 
 
 class OptionalKey(models.Model): 
@@ -87,7 +105,7 @@ class Provider(OptionalParameterOwner):
     adaptor    = models.ForeignKey(Adaptor)
     cdr_string = models.CharField(_('CDR String'), max_length=40)
     timeout    = models.PositiveSmallIntegerField(_('Timeout [sec]'), default=60)
-    country    = models.ForeignKey(ConfigCountry)
+    country    = models.ForeignKey(Country)
 
     class Meta:
         verbose_name        = _('Provider')
@@ -112,8 +130,6 @@ class ServiceCode(OptionalParameterOwner):
     '''
     provider    = models.ForeignKey(Provider, related_name='service_codes')
     tariff      = models.DecimalField(_('Tariff'), max_digits=10 ,decimal_places=2)
-#    currency    = models.ForeignKey(Currency, blank=True, null=True)
-#    country     = models.ForeignKey(ConfigCountry, blank=True, null=True)
 
     class Meta:
         verbose_name        = _('Service Code')

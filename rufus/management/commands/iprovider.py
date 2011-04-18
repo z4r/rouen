@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 import ConfigParser
 from rufus.models import *
-from countries.models import Country
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -59,17 +58,9 @@ class Command(BaseCommand):
         params['name']             = section.replace('provider ', '')
         params['adaptor'], created = Adaptor.objects.get_or_create(name=adaptor)
         try:
-            real_country = Country.objects.get(pk=country)
-            params['country'], created = ConfigCountry.objects.get_or_create(pk=country, country=real_country)
+            params['country'] = Country.objects.get(config_name=country)
         except:
-            while True:
-                try:
-                    real_country_name  = raw_input("{0} NOT FOUND, Insert a valid country:\n".format(country))
-                    real_country = Country.objects.get(pk=real_country_name)
-                    params['country'], created = ConfigCountry.objects.get_or_create(pk=country, country=real_country)
-                    break
-                except:
-                    pass
+            raise CommandError('{0} Not Found'.format(country))
 
 
         params['cdr_string']       = cdr_string

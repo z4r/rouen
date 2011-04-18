@@ -16,7 +16,8 @@ class ExtraAdmin(admin.ModelAdmin):
     list_display = ('name', 'provider',)
     inlines = (OptionalParameterInline,)
 
-admin.site.register(ConfigCountry)
+admin.site.register(Country)
+admin.site.register(Currency)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(OptionalKey) 
 admin.site.register(OptionalParameter)
