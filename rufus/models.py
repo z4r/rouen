@@ -111,7 +111,11 @@ class Provider(OptionalParameterOwner):
         verbose_name        = _('Provider')
         verbose_name_plural = _('Providers')
         db_table            = 'provider'
+        ordering            = ('country',)
 
+    @property
+    def service_count(self):
+        return self.service_codes.count()
 
 class Extra(OptionalParameterOwner):
     '''Some providers share common params. Those params are inserted in a 
@@ -130,8 +134,15 @@ class ServiceCode(OptionalParameterOwner):
     '''
     provider    = models.ForeignKey(Provider, related_name='service_codes')
     tariff      = models.DecimalField(_('Tariff'), max_digits=10 ,decimal_places=2)
+    currency    = models.ForeignKey(Currency, blank=True) 
 
     class Meta:
         verbose_name        = _('Service Code')
         verbose_name_plural = _('Service Codes')
         db_table            = 'service_code'
+        ordering            = ('currency','name')
+
+    def save(self, *args, **kvargs):
+        if not self.currency_id:
+            self.currency = self.provider.country.currency
+        super(ServiceCode, self).save(*args, **kvargs)

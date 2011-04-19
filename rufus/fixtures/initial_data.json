@@ -56,6 +56,22 @@
         }
     }, 
     {
+        "pk": "GBP", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "R", 
+            "name": "Pound"
+        }
+    }, 
+    {
+        "pk": "AUD", 
+        "model": "rufus.currency", 
+        "fields": {
+            "symbol": "$", 
+            "name": "Australian dollar"
+        }
+    }, 
+    {
         "pk": "AT", 
         "model": "rufus.country", 
         "fields": {
@@ -65,6 +81,18 @@
             "numcode": 40, 
             "currency": "EUR", 
             "iso3": "AUT"
+        }
+    }, 
+    {
+        "pk": "AU", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "AU", 
+            "name": "AUSTRALIA", 
+            "printable_name": "Australia", 
+            "numcode": 36, 
+            "currency": "AUD", 
+            "iso3": "AUS"
         }
     }, 
     {
@@ -89,6 +117,18 @@
             "numcode": 124, 
             "currency": "CAD", 
             "iso3": "CAN"
+        }
+    }, 
+    {
+        "pk": "GB", 
+        "model": "rufus.country", 
+        "fields": {
+            "config_name": "GB", 
+            "name": "UNITED KINGDOM", 
+            "printable_name": "United Kingdom of Great Britain and Northern Ireland", 
+            "numcode": 826, 
+            "currency": "GBP", 
+            "iso3": "GBR"
         }
     }, 
     {
