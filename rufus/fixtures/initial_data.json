@@ -173,7 +173,7 @@
         "fields": {
             "config_name": "ALL", 
             "name": "PRIVATE_ALL", 
-            "printable_name": "All", 
+            "printable_name": "WorldWide", 
             "numcode": 1000, 
             "currency": null, 
             "iso3": "ALL"

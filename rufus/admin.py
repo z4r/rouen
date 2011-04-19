@@ -4,13 +4,19 @@ from django.contrib import admin
 class ExtraInline(admin.TabularInline):
     model = Extra
     fk_name = 'provider'
+    extra = 0
 
 class ServiceCodeInline(admin.TabularInline):
     model = ServiceCode
     fk_name = 'provider'
+    #readonly_fields = ('name',)
+    #fields = ('name', 'tariff', 'currency',)
+    #exclude = ('name', )
+    extra = 0
 
 class OptionalParameterInline(admin.TabularInline):
     model = OptionalParameter
+    extra = 0
 
 class ProviderAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'timeout', 'adaptor', 'cdr_string', 'service_count', )
