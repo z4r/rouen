@@ -32,6 +32,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def provider(config):
+        Provider.objects.all().delete() 
+        Extra.objects.all().delete() 
         providers = ( p for p in config.sections() if p.startswith('provider'))
         for provider in providers:
             params = Command.provider_mandatory(config, provider)
