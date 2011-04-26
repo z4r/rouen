@@ -12,7 +12,7 @@ def export(request, command):
         body, filename = service(output, config)
     else:
         return HttpResponseNotFound()
-    #return HttpResponse(body)
+    return HttpResponse(body)
     response = HttpResponse(body, mimetype="application/octet-stream")
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     return response
@@ -43,6 +43,7 @@ def service(output, config):
     for sc in ServiceCode.objects.all():
         section = 'servicecode {0}'.format(sc.name)
         config.add_section(section)
+        config.set(section, 'provider', sc.provider)
         config.set(section, 'country', sc.provider.country.config_name)
         config.set(section, 'tariff', sc.tariff)
         config.set(section, 'currency', sc.currency)

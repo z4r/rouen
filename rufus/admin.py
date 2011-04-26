@@ -1,5 +1,8 @@
 from rufus.models import *
+from rufus.exporter import get_ini
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse, HttpResponseNotFound
 
 class ExtraInline(admin.TabularInline):
     model = Extra
@@ -15,6 +18,7 @@ class ServiceCodeInline(admin.TabularInline):
 
 class OptionalParameterInline(admin.TabularInline):
     model = OptionalParameter
+    readonly_fields = ('key',)
     extra = 0
 
 
@@ -36,6 +40,14 @@ class ServiceCodeAdmin(admin.ModelAdmin):
     inlines         = (OptionalParameterInline,)
     search_fields   = ('name', )
     list_filter     = ('currency', )
+    actions         = ('export_ini',)
+
+    def export_ini(self, request, queryset):
+        body = get_ini(queryset)
+        response = HttpResponse(body, mimetype="application/octet-stream")
+        response['Content-Disposition'] = 'attachment; filename={0}'.format('rufus.ini')
+        return response
+    export_ini.short_description = _('Export INI Files')
 
 
 class CountryAdmin(admin.ModelAdmin):

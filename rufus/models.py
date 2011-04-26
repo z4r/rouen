@@ -133,7 +133,7 @@ class ServiceCode(OptionalParameterOwner):
     '''
     '''
     provider    = models.ForeignKey(Provider, related_name='service_codes')
-    tariff      = models.DecimalField(_('Tariff'), max_digits=10 ,decimal_places=2)
+    tariff      = models.DecimalField(_('Tariff'), max_digits=10, decimal_places=2)
     currency    = models.ForeignKey(Currency, blank=True) 
 
     class Meta:
